@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_celery_results',
     'django_celery_beat',
-    'thoth_data_collector.apps.ThothDataCollectorConfig',
+    'thoth_data_collector'
 ]
 
 MIDDLEWARE = [
