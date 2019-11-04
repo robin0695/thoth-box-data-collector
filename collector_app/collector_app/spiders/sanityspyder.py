@@ -25,14 +25,13 @@ class SanitySpider(Spider):
         content_selector.register_namespace('xmlns', 'http://www.w3.org/2005/Atom')
         content_selector.remove_namespaces()
 
-
         for line in content_selector.xpath('//feed/entry'):
             item = TestItem()
             item['id'] = line.xpath('id/text()').extract()
             item['title'] = line.xpath('title/text()').extract()
-            item['links'] = line.xpath('link[@title=\'pdf\']').extract()
+            item['links'] = line.xpath('link/@href').extract()
             item['authors'] = line.xpath('author/name/text()').extract()
-            item['comments'] = line.xpath('comment').extract()
+            item['comments'] = line.xpath('comment/text()').extract()
             item['primary_category'] = line.xpath('primary_category/@term').extract()
             item['categories'] = line.xpath('category/@term').extract()
             yield item

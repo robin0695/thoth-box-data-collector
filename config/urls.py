@@ -20,6 +20,7 @@ from thoth_data_collector import views
 
 router = routers.DefaultRouter()
 router.register(r'papers', views.PaperViewSet)
+router.register(r'paper_authors', views.PaperAuthorViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

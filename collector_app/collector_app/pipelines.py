@@ -17,7 +17,11 @@ class CollectorAppPipeline(object):
 
         paperItem.paper_id = item['id'][0]
         paperItem.paper_title = item['title'][0]
-        paperItem.paper_link = item['links'][0]
+        paperItem.created_by = 'spider'
+
+        for s in item['links']:
+            if 'pdf' in s:
+                paperItem.paper_link = s
         paperItem.page_comments = item['comments'][0]
         paperItem.save()
 
