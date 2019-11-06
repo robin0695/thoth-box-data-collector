@@ -1,5 +1,11 @@
-from thoth_data_collector.models import PaperItem, PaperAuthor, PaperCategory
+from thoth_data_collector.models import PaperItem, PaperAuthor, PaperCategory, IssueInfo
 from rest_framework import serializers
+
+
+class IssueInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IssueInfo
+        fields = ('id', 'issue_title', 'issue_date', 'issue_sn', 'update_date', 'update_by', 'is_deleted')
 
 
 class PaperCategorySerializer(serializers.ModelSerializer):
