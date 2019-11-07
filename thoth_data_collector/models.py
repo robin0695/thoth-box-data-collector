@@ -4,11 +4,11 @@ from datetime import datetime, date
 
 class IssueInfo(models.Model):
     issue_title = models.CharField(max_length=1000)
-    issue_date = models.DateTimeField(default=datetime.now())
+    issue_date = models.DateTimeField(auto_now=True)
     issue_sn = models.CharField(max_length=100)
-    created_date = models.DateTimeField(default=datetime.now())
+    created_date = models.DateTimeField(auto_now_add=True)
     created_by = models.CharField(max_length=200, default='')
-    update_date = models.DateTimeField(default=datetime.now())
+    update_date = models.DateTimeField(auto_now=True)
     update_by = models.CharField(max_length=200, default='')
     is_deleted = models.BooleanField(default=False)
 
@@ -22,9 +22,9 @@ class PaperItem(models.Model):
     is_recommanded = models.BooleanField(default=False)
     recommand_reason = models.TextField(default='')
     recommand_by = models.CharField(max_length=200, default='')
-    created_date = models.DateTimeField(default=datetime.now())
+    created_date = models.DateTimeField(auto_now_add=True)
     created_by = models.CharField(max_length=200, default='')
-    update_date = models.DateTimeField(default=datetime.now())
+    update_date = models.DateTimeField(auto_now=True)
     update_by = models.CharField(max_length=200, default='')
     is_processed = models.BooleanField(default=False)
     issue_info = models.ForeignKey(IssueInfo, related_name='papers', on_delete=models.CASCADE, null=True)
