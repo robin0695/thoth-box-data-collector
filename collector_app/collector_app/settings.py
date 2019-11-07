@@ -12,10 +12,9 @@
 import django
 import os
 import sys
-from os.path import dirname
 
 #sys.path.insert(0, '/Users/liwei/PycharmProjects/thoth-box-data-collector')
-django_path = dirname(dirname(dirname((os.path.abspath(__file__)))))
+django_path = os.path.abspath(os.path.join(__file__, os.pardir, os. pardir, os.pardir))
 sys.path.insert(0, django_path)
 os.environ["DJANGO_SETTINGS_MODULE"] = 'config.settings'
 django.setup()
