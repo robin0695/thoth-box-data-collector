@@ -15,11 +15,16 @@ import subprocess
 logger = logging.getLogger(__name__)
 
 @shared_task
-def add(x, y):
-    return x+y
+def process_paper():
+    """
+    process the paper based on the query from PaperItem with is_processed == 0
+    actions:
+        download paper
+        transform paper to html
+        extract text from paper
 
-@shared_task
-def download_paper():
+    the processed files are saved in MEDIA_URL/pdfs
+    """
     data_folder = os.path.join(settings.MEDIA_ROOT, 'pdfs')
     timeout_secs = 10 # after this many seconds we give up the paper
     papers = PaperItem.objects.filter(is_processed=0)
@@ -41,6 +46,7 @@ def download_paper():
                     shutil.copyfileobj(req, fp)
                 
                 pdf2html.delay(output_paper_file)
+                pdf2text.delay(output_paper_file)
                 time.sleep(0.05 + random.unifomr(0, 0.1))
             
             paper.is_processed = 1
@@ -50,11 +56,10 @@ def download_paper():
 
 @shared_task
 def pdf2html(paper_file):
+    if not shutil.which('pdf2htmlEX'):
+        raise Exception('Error: pdf2htmlEX not exist. Pleaase install pdf2htmlEX in first.')
     dest_dir = os.path.dirname(paper_file)
-    basename = os.path.basename(paper_file).split(".")[0]
-    html_file = os.path.join(dest_dir, basename + ".html")
-    if os.path.exists(html_file):
-        return
+    basename = os.path.basename(paper_file).rsplit(".", 1)[0]
 
     command = "pdf2htmlEX --dest-dir %s %s"  % (dest_dir, paper_file)
     logger.info(command)
@@ -63,6 +68,22 @@ def pdf2html(paper_file):
     except Exception as e:
         logger.error(e)
 
+@shared_task
+def pdf2text(pdf_file):
+    if not shutil.which('pdftotext'):
+        raise Exception('Error: pdftotext not exist. Please install pdftotext in first.')
+    
+    basename = os.path.basename(pdf_file)
+    text_basename = basename.rsplit(".", 1)[0] + ".txt" 
+    text_file = os.path.join(os.path.dirname(pdf_file), text_basename)
+
+    command = "pdftotext %s %s" % (pdf_file, text_file)
+    logger.info(command)
+
+    try:
+        subprocess.call(command, shell=True)
+    except Exception as e:
+        logger.error(e)
 
 if __name__ == "__main__":
     pass
