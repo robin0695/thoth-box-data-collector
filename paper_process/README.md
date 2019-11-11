@@ -4,7 +4,7 @@ start the celery worker and beat process
 
 1. `cd ROOT_FOLDER`
 2. `celery -A config worker -l info`
-3. `celeru -A config beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler`
+3. `celery -A config beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler`
 
 ## Tasks
 
