@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'thoth_data_collector',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'paper_process'
 
 ]
 
@@ -164,3 +165,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CELERY_RESULT_BACKEND = 'django-db'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
