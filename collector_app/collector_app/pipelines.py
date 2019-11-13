@@ -23,6 +23,7 @@ class CollectorAppPipeline(object):
             if 'pdf' in s:
                 paperItem.paper_link = s
         paperItem.page_comments = item['comments'][0]
+        paperItem.summary = item['summary'][0]
         paperItem.save()
 
         for author_name_ in item['authors']:

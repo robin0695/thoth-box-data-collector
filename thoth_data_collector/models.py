@@ -28,6 +28,7 @@ class PaperItem(models.Model):
     update_by = models.CharField(max_length=200, default='')
     is_processed = models.BooleanField(default=False)
     issue_info = models.ForeignKey(IssueInfo, related_name='papers', on_delete=models.CASCADE, null=True)
+    summary = models.TextField(default='')
 
 
 class PaperAuthor(models.Model):

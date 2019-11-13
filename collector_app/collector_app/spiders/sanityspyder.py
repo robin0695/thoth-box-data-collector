@@ -34,6 +34,7 @@ class SanitySpider(Spider):
             item['comments'] = line.xpath('comment/text()').extract()
             item['primary_category'] = line.xpath('primary_category/@term').extract()
             item['categories'] = line.xpath('category/@term').extract()
+            item['summary'] = line.xpath('summary/text()').extract()
             yield item
 
         # i['title'] = content_selector.xpath("/feed/entry/title/text()").extract()
