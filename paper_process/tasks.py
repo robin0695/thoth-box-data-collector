@@ -85,6 +85,11 @@ def pdf2text(pdf_file):
     except Exception as e:
         logger.error(e)
 
+@shared_task
+def pdf2text_all():
+    """
+    
+    """
 if __name__ == "__main__":
     pass
 
