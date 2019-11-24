@@ -1,0 +1,503 @@
+{
+  "count": 18,
+  "next": "http://localhost:8000/papers/?is_recommanded=True&is_recommanded=True&page=2",
+  "previous": null,
+  "results": [
+    {
+      "id": 18,
+      "paper_id": "http://arxiv.org/abs/1807.04723v1",
+      "paper_title": "The Bottleneck Simulator: A Model-based Deep Reinforcement Learning\n  Approach",
+      "paper_link": "http://arxiv.org/pdf/1807.04723v1",
+      "page_comments": "26 pages, 2 figures, 4 tables",
+      "is_recommanded": true,
+      "recommand_reason": "dddfsdfsdfdsfsfInput the reason here...",
+      "recommand_by": "Robin Li",
+      "authors": [
+        "Iulian Vlad Serban",
+        "Chinnadhurai Sankar",
+        "Michael Pieper",
+        "Joelle Pineau",
+        "Yoshua Bengio"
+      ],
+      "categories": [
+        {
+          "id": 298,
+          "term": "cs.LG",
+          "is_primary": true
+        },
+        {
+          "id": 299,
+          "term": "cs.AI",
+          "is_primary": false
+        },
+        {
+          "id": 300,
+          "term": "cs.CL",
+          "is_primary": false
+        },
+        {
+          "id": 301,
+          "term": "cs.NE",
+          "is_primary": false
+        },
+        {
+          "id": 302,
+          "term": "stat.ML",
+          "is_primary": false
+        },
+        {
+          "id": 303,
+          "term": "I.5.1; I.2.7",
+          "is_primary": false
+        }
+      ],
+      "issue_info": 2,
+      "summary": "  Deep reinforcement learning has recently shown many impressive successes.\nHowever, one major obstacle towards applying such methods to real-world\nproblems is their lack of data-efficiency. To this end, we propose the\nBottleneck Simulator: a model-based reinforcement learning method which\ncombines a learned, factorized transition model of the environment with rollout\nsimulations to learn an effective policy from few examples. The learned\ntransition model employs an abstract, discrete (bottleneck) state, which\nincreases sample efficiency by reducing the number of model parameters and by\nexploiting structural properties of the environment. We provide a mathematical\nanalysis of the Bottleneck Simulator in terms of fixed points of the learned\npolicy, which reveals how performance is affected by four distinct sources of\nerror: an error related to the abstract space structure, an error related to\nthe transition model estimation variance, an error related to the transition\nmodel estimation bias, and an error related to the transition model class bias.\nFinally, we evaluate the Bottleneck Simulator on two natural language\nprocessing tasks: a text adventure game and a real-world, complex dialogue\nresponse selection task. On both tasks, the Bottleneck Simulator yields\nexcellent performance beating competing approaches.\n"
+    },
+    {
+      "id": 17,
+      "paper_id": "http://arxiv.org/abs/1805.11752v5",
+      "paper_title": "Multi-turn Dialogue Response Generation in an Adversarial Learning\n  Framework",
+      "paper_link": "http://arxiv.org/pdf/1805.11752v5",
+      "page_comments": "Accepted at ACL 2019 Workshop on NLP for Conversational AI",
+      "is_recommanded": false,
+      "recommand_reason": "",
+      "recommand_by": "",
+      "authors": [
+        "Oluwatobi Olabiyi",
+        "Alan Salimov",
+        "Anish Khazane",
+        "Erik T. Mueller"
+      ],
+      "categories": [
+        {
+          "id": 293,
+          "term": "cs.CL",
+          "is_primary": true
+        },
+        {
+          "id": 294,
+          "term": "cs.AI",
+          "is_primary": false
+        },
+        {
+          "id": 295,
+          "term": "cs.LG",
+          "is_primary": false
+        },
+        {
+          "id": 296,
+          "term": "cs.NE",
+          "is_primary": false
+        },
+        {
+          "id": 297,
+          "term": "stat.ML",
+          "is_primary": false
+        }
+      ],
+      "issue_info": null,
+      "summary": "  We propose an adversarial learning approach for generating multi-turn\ndialogue responses. Our proposed framework, hredGAN, is based on conditional\ngenerative adversarial networks (GANs). The GAN's generator is a modified\nhierarchical recurrent encoder-decoder network (HRED) and the discriminator is\na word-level bidirectional RNN that shares context and word embeddings with the\ngenerator. During inference, noise samples conditioned on the dialogue history\nare used to perturb the generator's latent space to generate several possible\nresponses. The final response is the one ranked best by the discriminator. The\nhredGAN shows improved performance over existing methods: (1) it generalizes\nbetter than networks trained using only the log-likelihood criterion, and (2)\nit generates longer, more informative and more diverse responses with high\nutterance and topic relevance even with limited training data. This improvement\nis demonstrated on the Movie triples and Ubuntu dialogue datasets using both\nautomatic and human evaluations.\n"
+    },
+    {
+      "id": 16,
+      "paper_id": "http://arxiv.org/abs/1801.06700v1",
+      "paper_title": "A Deep Reinforcement Learning Chatbot (Short Version)",
+      "paper_link": "http://arxiv.org/pdf/1801.06700v1",
+      "page_comments": "9 pages, 1 figure, 2 tables; presented at NIPS 2017, Conversational\n  AI: \"Today's Practice and Tomorrow's Potential\" Workshop",
+      "is_recommanded": false,
+      "recommand_reason": "",
+      "recommand_by": "",
+      "authors": [
+        "Iulian V. Serban",
+        "Chinnadhurai Sankar",
+        "Mathieu Germain",
+        "Saizheng Zhang",
+        "Zhouhan Lin",
+        "Sandeep Subramanian",
+        "Taesup Kim",
+        "Michael Pieper",
+        "Sarath Chandar",
+        "Nan Rosemary Ke",
+        "Sai Rajeswar",
+        "Alexandre de Brebisson",
+        "Jose M. R. Sotelo",
+        "Dendi Suhubdy",
+        "Vincent Michalski",
+        "Alexandre Nguyen",
+        "Joelle Pineau",
+        "Yoshua Bengio"
+      ],
+      "categories": [
+        {
+          "id": 287,
+          "term": "cs.CL",
+          "is_primary": true
+        },
+        {
+          "id": 288,
+          "term": "cs.AI",
+          "is_primary": false
+        },
+        {
+          "id": 289,
+          "term": "cs.LG",
+          "is_primary": false
+        },
+        {
+          "id": 290,
+          "term": "cs.NE",
+          "is_primary": false
+        },
+        {
+          "id": 291,
+          "term": "stat.ML",
+          "is_primary": false
+        },
+        {
+          "id": 292,
+          "term": "I.5.1; I.2.7",
+          "is_primary": false
+        }
+      ],
+      "issue_info": null,
+      "summary": "  We present MILABOT: a deep reinforcement learning chatbot developed by the\nMontreal Institute for Learning Algorithms (MILA) for the Amazon Alexa Prize\ncompetition. MILABOT is capable of conversing with humans on popular small talk\ntopics through both speech and text. The system consists of an ensemble of\nnatural language generation and retrieval models, including neural network and\ntemplate-based models. By applying reinforcement learning to crowdsourced data\nand real-world user interactions, the system has been trained to select an\nappropriate response from the models in its ensemble. The system has been\nevaluated through A/B testing with real-world users, where it performed\nsignificantly better than other systems. The results highlight the potential of\ncoupling ensemble systems with deep reinforcement learning as a fruitful path\nfor developing real-world, open-domain conversational agents.\n"
+    },
+    {
+      "id": 15,
+      "paper_id": "http://arxiv.org/abs/1709.08878v2",
+      "paper_title": "Generating Sentences by Editing Prototypes",
+      "paper_link": "http://arxiv.org/pdf/1709.08878v2",
+      "page_comments": "14 pages, Transactions of the Association for Computational\n  Linguistics (TACL), 2018",
+      "is_recommanded": false,
+      "recommand_reason": "",
+      "recommand_by": "",
+      "authors": [
+        "Kelvin Guu",
+        "Tatsunori B. Hashimoto",
+        "Yonatan Oren",
+        "Percy Liang"
+      ],
+      "categories": [
+        {
+          "id": 282,
+          "term": "cs.CL",
+          "is_primary": true
+        },
+        {
+          "id": 283,
+          "term": "cs.AI",
+          "is_primary": false
+        },
+        {
+          "id": 284,
+          "term": "cs.LG",
+          "is_primary": false
+        },
+        {
+          "id": 285,
+          "term": "cs.NE",
+          "is_primary": false
+        },
+        {
+          "id": 286,
+          "term": "stat.ML",
+          "is_primary": false
+        }
+      ],
+      "issue_info": null,
+      "summary": "  We propose a new generative model of sentences that first samples a prototype\nsentence from the training corpus and then edits it into a new sentence.\nCompared to traditional models that generate from scratch either left-to-right\nor by first sampling a latent sentence vector, our prototype-then-edit model\nimproves perplexity on language modeling and generates higher quality outputs\naccording to human evaluation. Furthermore, the model gives rise to a latent\nedit vector that captures interpretable semantics such as sentence similarity\nand sentence-level analogies.\n"
+    },
+    {
+      "id": 14,
+      "paper_id": "http://arxiv.org/abs/1709.02349v2",
+      "paper_title": "A Deep Reinforcement Learning Chatbot",
+      "paper_link": "http://arxiv.org/pdf/1709.02349v2",
+      "page_comments": "40 pages, 9 figures, 11 tables",
+      "is_recommanded": false,
+      "recommand_reason": "",
+      "recommand_by": "",
+      "authors": [
+        "Iulian V. Serban",
+        "Chinnadhurai Sankar",
+        "Mathieu Germain",
+        "Saizheng Zhang",
+        "Zhouhan Lin",
+        "Sandeep Subramanian",
+        "Taesup Kim",
+        "Michael Pieper",
+        "Sarath Chandar",
+        "Nan Rosemary Ke",
+        "Sai Rajeshwar",
+        "Alexandre de Brebisson",
+        "Jose M. R. Sotelo",
+        "Dendi Suhubdy",
+        "Vincent Michalski",
+        "Alexandre Nguyen",
+        "Joelle Pineau",
+        "Yoshua Bengio"
+      ],
+      "categories": [
+        {
+          "id": 276,
+          "term": "cs.CL",
+          "is_primary": true
+        },
+        {
+          "id": 277,
+          "term": "cs.AI",
+          "is_primary": false
+        },
+        {
+          "id": 278,
+          "term": "cs.LG",
+          "is_primary": false
+        },
+        {
+          "id": 279,
+          "term": "cs.NE",
+          "is_primary": false
+        },
+        {
+          "id": 280,
+          "term": "stat.ML",
+          "is_primary": false
+        },
+        {
+          "id": 281,
+          "term": "I.5.1; I.2.7",
+          "is_primary": false
+        }
+      ],
+      "issue_info": null,
+      "summary": "  We present MILABOT: a deep reinforcement learning chatbot developed by the\nMontreal Institute for Learning Algorithms (MILA) for the Amazon Alexa Prize\ncompetition. MILABOT is capable of conversing with humans on popular small talk\ntopics through both speech and text. The system consists of an ensemble of\nnatural language generation and retrieval models, including template-based\nmodels, bag-of-words models, sequence-to-sequence neural network and latent\nvariable neural network models. By applying reinforcement learning to\ncrowdsourced data and real-world user interactions, the system has been trained\nto select an appropriate response from the models in its ensemble. The system\nhas been evaluated through A/B testing with real-world users, where it\nperformed significantly better than many competing systems. Due to its machine\nlearning architecture, the system is likely to improve with additional data.\n"
+    },
+    {
+      "id": 13,
+      "paper_id": "http://arxiv.org/abs/1705.08142v3",
+      "paper_title": "Latent Multi-task Architecture Learning",
+      "paper_link": "http://arxiv.org/pdf/1705.08142v3",
+      "page_comments": "To appear in Proceedings of AAAI 2019",
+      "is_recommanded": false,
+      "recommand_reason": "",
+      "recommand_by": "",
+      "authors": [
+        "Sebastian Ruder",
+        "Joachim Bingel",
+        "Isabelle Augenstein",
+        "Anders Søgaard"
+      ],
+      "categories": [
+        {
+          "id": 271,
+          "term": "stat.ML",
+          "is_primary": true
+        },
+        {
+          "id": 272,
+          "term": "cs.AI",
+          "is_primary": false
+        },
+        {
+          "id": 273,
+          "term": "cs.CL",
+          "is_primary": false
+        },
+        {
+          "id": 274,
+          "term": "cs.LG",
+          "is_primary": false
+        },
+        {
+          "id": 275,
+          "term": "cs.NE",
+          "is_primary": false
+        }
+      ],
+      "issue_info": null,
+      "summary": "  Multi-task learning (MTL) allows deep neural networks to learn from related\ntasks by sharing parameters with other networks. In practice, however, MTL\ninvolves searching an enormous space of possible parameter sharing\narchitectures to find (a) the layers or subspaces that benefit from sharing,\n(b) the appropriate amount of sharing, and (c) the appropriate relative weights\nof the different task losses. Recent work has addressed each of the above\nproblems in isolation. In this work we present an approach that learns a latent\nmulti-task architecture that jointly addresses (a)--(c). We present experiments\non synthetic data and data from OntoNotes 5.0, including four different tasks\nand seven different domains. Our extension consistently outperforms previous\napproaches to learning latent architectures for multi-task problems and\nachieves up to 15% average error reductions over common approaches to MTL.\n"
+    },
+    {
+      "id": 12,
+      "paper_id": "http://arxiv.org/abs/1606.00776v2",
+      "paper_title": "Multiresolution Recurrent Neural Networks: An Application to Dialogue\n  Response Generation",
+      "paper_link": "http://arxiv.org/pdf/1606.00776v2",
+      "page_comments": "21 pages, 2 figures, 10 tables",
+      "is_recommanded": false,
+      "recommand_reason": "",
+      "recommand_by": "",
+      "authors": [
+        "Iulian Vlad Serban",
+        "Tim Klinger",
+        "Gerald Tesauro",
+        "Kartik Talamadupula",
+        "Bowen Zhou",
+        "Yoshua Bengio",
+        "Aaron Courville"
+      ],
+      "categories": [
+        {
+          "id": 265,
+          "term": "cs.CL",
+          "is_primary": true
+        },
+        {
+          "id": 266,
+          "term": "cs.AI",
+          "is_primary": false
+        },
+        {
+          "id": 267,
+          "term": "cs.LG",
+          "is_primary": false
+        },
+        {
+          "id": 268,
+          "term": "cs.NE",
+          "is_primary": false
+        },
+        {
+          "id": 269,
+          "term": "stat.ML",
+          "is_primary": false
+        },
+        {
+          "id": 270,
+          "term": "I.5.1; I.2.7",
+          "is_primary": false
+        }
+      ],
+      "issue_info": null,
+      "summary": "  We introduce the multiresolution recurrent neural network, which extends the\nsequence-to-sequence framework to model natural language generation as two\nparallel discrete stochastic processes: a sequence of high-level coarse tokens,\nand a sequence of natural language tokens. There are many ways to estimate or\nlearn the high-level coarse tokens, but we argue that a simple extraction\nprocedure is sufficient to capture a wealth of high-level discourse semantics.\nSuch procedure allows training the multiresolution recurrent neural network by\nmaximizing the exact joint log-likelihood over both sequences. In contrast to\nthe standard log- likelihood objective w.r.t. natural language tokens (word\nperplexity), optimizing the joint log-likelihood biases the model towards\nmodeling high-level abstractions. We apply the proposed model to the task of\ndialogue response generation in two challenging domains: the Ubuntu technical\nsupport domain, and Twitter conversations. On Ubuntu, the model outperforms\ncompeting approaches by a substantial margin, achieving state-of-the-art\nresults according to both automatic evaluation metrics and a human evaluation\nstudy. On Twitter, the model appears to generate more relevant and on-topic\nresponses according to automatic evaluation metrics. Finally, our experiments\ndemonstrate that the proposed model is more adept at overcoming the sparsity of\nnatural language and is better able to capture long-term structure.\n"
+    },
+    {
+      "id": 11,
+      "paper_id": "http://arxiv.org/abs/1603.03827v1",
+      "paper_title": "Sequential Short-Text Classification with Recurrent and Convolutional\n  Neural Networks",
+      "paper_link": "http://arxiv.org/pdf/1603.03827v1",
+      "page_comments": "Accepted as a conference paper at NAACL 2016",
+      "is_recommanded": false,
+      "recommand_reason": "",
+      "recommand_by": "",
+      "authors": [
+        "Ji Young Lee",
+        "Franck Dernoncourt"
+      ],
+      "categories": [
+        {
+          "id": 260,
+          "term": "cs.CL",
+          "is_primary": true
+        },
+        {
+          "id": 261,
+          "term": "cs.AI",
+          "is_primary": false
+        },
+        {
+          "id": 262,
+          "term": "cs.LG",
+          "is_primary": false
+        },
+        {
+          "id": 263,
+          "term": "cs.NE",
+          "is_primary": false
+        },
+        {
+          "id": 264,
+          "term": "stat.ML",
+          "is_primary": false
+        }
+      ],
+      "issue_info": null,
+      "summary": "  Recent approaches based on artificial neural networks (ANNs) have shown\npromising results for short-text classification. However, many short texts\noccur in sequences (e.g., sentences in a document or utterances in a dialog),\nand most existing ANN-based systems do not leverage the preceding short texts\nwhen classifying a subsequent one. In this work, we present a model based on\nrecurrent neural networks and convolutional neural networks that incorporates\nthe preceding short texts. Our model achieves state-of-the-art results on three\ndifferent datasets for dialog act prediction.\n"
+    },
+    {
+      "id": 10,
+      "paper_id": "http://arxiv.org/abs/1802.00209v3",
+      "paper_title": "Dual Recurrent Attention Units for Visual Question Answering",
+      "paper_link": "http://arxiv.org/pdf/1802.00209v3",
+      "page_comments": "8 pages, 5 figures",
+      "is_recommanded": false,
+      "recommand_reason": "",
+      "recommand_by": "",
+      "authors": [
+        "Ahmed Osman",
+        "Wojciech Samek"
+      ],
+      "categories": [
+        {
+          "id": 255,
+          "term": "cs.AI",
+          "is_primary": true
+        },
+        {
+          "id": 256,
+          "term": "cs.CL",
+          "is_primary": false
+        },
+        {
+          "id": 257,
+          "term": "cs.CV",
+          "is_primary": false
+        },
+        {
+          "id": 258,
+          "term": "cs.NE",
+          "is_primary": false
+        },
+        {
+          "id": 259,
+          "term": "stat.ML",
+          "is_primary": false
+        }
+      ],
+      "issue_info": null,
+      "summary": "  Visual Question Answering (VQA) requires AI models to comprehend data in two\ndomains, vision and text. Current state-of-the-art models use learned attention\nmechanisms to extract relevant information from the input domains to answer a\ncertain question. Thus, robust attention mechanisms are essential for powerful\nVQA models. In this paper, we propose a recurrent attention mechanism and show\nits benefits compared to the traditional convolutional approach. We perform two\nablation studies to evaluate recurrent attention. First, we introduce a\nbaseline VQA model with visual attention and test the performance difference\nbetween convolutional and recurrent attention on the VQA 2.0 dataset. Secondly,\nwe design an architecture for VQA which utilizes dual (textual and visual)\nRecurrent Attention Units (RAUs). Using this model, we show the effect of all\npossible combinations of recurrent and convolutional dual attention. Our single\nmodel outperforms the first place winner on the VQA 2016 challenge and to the\nbest of our knowledge, it is the second best performing single model on the VQA\n1.0 dataset. Furthermore, our model noticeably improves upon the winner of the\nVQA 2017 challenge. Moreover, we experiment replacing attention mechanisms in\nstate-of-the-art models with our RAUs and show increased performance.\n"
+    },
+    {
+      "id": 9,
+      "paper_id": "http://arxiv.org/abs/1807.08133v1",
+      "paper_title": "What is not where: the challenge of integrating spatial representations\n  into deep learning architectures",
+      "paper_link": "http://arxiv.org/pdf/1807.08133v1",
+      "page_comments": "15 pages, 10 figures, Appears in CLASP Papers in Computational\n  Linguistics Vol 1: Proceedings of the Conference on Logic and Machine\n  Learning in Natural Language (LaML 2017), pp. 41-52",
+      "is_recommanded": true,
+      "recommand_reason": "# Header\n- sdlkfjslkdjflskdjflkds\n- lsdkfjlsdkjflksdflkjds\n- lsdkjflkdsjflksdjflk\n## header2 2",
+      "recommand_by": "Robin Li",
+      "authors": [
+        "John D. Kelleher",
+        "Simon Dobnik"
+      ],
+      "categories": [
+        {
+          "id": 250,
+          "term": "cs.LG",
+          "is_primary": true
+        },
+        {
+          "id": 251,
+          "term": "cs.AI",
+          "is_primary": false
+        },
+        {
+          "id": 252,
+          "term": "cs.CL",
+          "is_primary": false
+        },
+        {
+          "id": 253,
+          "term": "cs.NE",
+          "is_primary": false
+        },
+        {
+          "id": 254,
+          "term": "stat.ML",
+          "is_primary": false
+        }
+      ],
+      "issue_info": 2,
+      "summary": ""
+    }
+  ]
+}

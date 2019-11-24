@@ -24,3 +24,4 @@ class TestItem(scrapy.Item):
     comments = scrapy.Field()
     primary_category = scrapy.Field()
     categories = scrapy.Field()
+    summary = scrapy.Field()

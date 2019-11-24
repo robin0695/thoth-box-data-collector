@@ -1,0 +1,110 @@
+GET http://localhost:8000/papers?is_recommanded=True
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-11-17T103000.500.txt
+
+###
+
+GET http://localhost:8000/papers?is_recommanded=True
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-11-17T074731.200.json
+
+###
+
+GET http://localhost:8000/papers?is_recommanded=True
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-11-17T073311.200.json
+
+###
+
+GET http://localhost:8000/papers?is_recommanded=True
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-11-17T073246.200.json
+
+###
+
+GET http://localhost:8000/papers?is_recommanded=True
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-11-17T073153.200.json
+
+###
+
+GET http://localhost:8000/papers?is_recommanded=True
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-11-17T073102.200.json
+
+###
+
+GET http://localhost:8000/papers?is_recommanded=True&is_recommanded=True
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-11-17T072342.200.json
+
+###
+
+GET http://localhost:8000/papers?is_recommanded=True
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-11-17T072304.200.json
+
+###
+
+GET http://localhost:8000/papers?is_recommanded=true
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-11-17T072219.200.json
+
+###
+
+GET http://localhost:8000/papers?is_recommanded=false
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-11-17T072052.200.json
+
+###
+
+GET http://localhost:8000/papers?is_recommanded=false
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-11-17T072003.200.json
+
+###
+
+GET http://localhost:8000/papers?is_recommanded=true
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-11-17T071932.200.json
+
+###
+
+GET http://localhost:8000/papers
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-11-17T071919.200.json
+
+###
+
+GET http://localhost:8080/papers
+Accept: */*
+Cache-Control: no-cache
+
+###
+
