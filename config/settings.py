@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import pymysql
+pymysql.install_as_MySQLdb()
 
 # Celery settings
 
@@ -49,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_celery_results',
     'django_celery_beat',
+    'haystack',
     'thoth_data_collector',
     'rest_framework',
     'corsheaders',
@@ -119,9 +122,17 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'thoth_django_dev',
+        'USER': 'thoth_django_dev',
+        'PASSWORD': 'thoth_django_dev',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
 
@@ -167,3 +178,14 @@ STATIC_URL = '/static/'
 CELERY_RESULT_BACKEND = 'django-db'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# haystack config
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr/thoth_box',                 # Assuming you created a core named 'tester' as described in installing search engines.
+        'ADMIN_URL': 'http://127.0.0.1:8983/solr/admin/cores'
+        # ...or for multicore...
+        # 'URL': 'http://127.0.0.1:8983/solr/mysite',
+    },
+}
