@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_celery_results',
     'django_celery_beat',
+    'haystack',
     'thoth_data_collector',
     'rest_framework',
     'corsheaders',
@@ -177,3 +178,14 @@ STATIC_URL = '/static/'
 CELERY_RESULT_BACKEND = 'django-db'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# haystack config
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr/thoth_box',                 # Assuming you created a core named 'tester' as described in installing search engines.
+        'ADMIN_URL': 'http://127.0.0.1:8983/solr/admin/cores'
+        # ...or for multicore...
+        # 'URL': 'http://127.0.0.1:8983/solr/mysite',
+    },
+}
