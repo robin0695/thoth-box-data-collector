@@ -1,6 +1,6 @@
 from django.db import models
 from datetime import datetime, date
-
+import django
 
 class IssueInfo(models.Model):
     issue_title = models.CharField(max_length=1000)
@@ -29,6 +29,9 @@ class PaperItem(models.Model):
     is_processed = models.BooleanField(default=False)
     issue_info = models.ForeignKey(IssueInfo, related_name='papers', on_delete=models.CASCADE, null=True)
     summary = models.TextField(default='')
+    like_count = models.IntegerField(default=0)
+    view_count = models.IntegerField(default=0)
+    last_view_time = models.DateTimeField(default=django.utils.timezone.now)
 
 
 class PaperAuthor(models.Model):

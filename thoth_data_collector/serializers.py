@@ -30,7 +30,7 @@ class PaperItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = PaperItem
         fields = ('id', 'paper_id', 'paper_title', 'paper_link', 'page_comments', 'is_recommanded', 'recommand_reason',
-                  'recommand_by', 'authors', 'categories', 'issue_info', 'summary')
+                  'recommand_by', 'authors', 'categories', 'issue_info', 'summary', 'like_count', 'view_count')
 
     def update(self, instance, validated_data):
         instance.is_recommanded = validated_data.get('is_recommanded', instance.is_recommanded)

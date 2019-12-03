@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
 
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
@@ -38,22 +39,18 @@ class RecommandPaperList(generics.ListAPIView):
             queryset = PaperItem.objects.all()
         return queryset
 
-class PaperSearchView_V2(View):
-    template_name = 'search/search.html'
-    sqs = SearchQuerySet()
-
-    def get(self, request, *args, **kwargs):
-        query = request.GET.get('q', None)
-        if query is not None:
-            results = self.sqs.filter(content=query).models(PaperItem)
-        else:
-            results = self.sqs.all()
-        
-        papers = [r.object for r in results]
-        return render(request, self.template_name, {'papers': papers})
-
 class PaperSearchView(HaystackViewSet):
     index_models = [PaperItem]
     serializer_class = PaperSearchSerializer
     permission_classes = []
+
+
+def paper_like(request, id, value):
+    paper = get_object_or_404(PaperItem, id=id)
+    paper.like_count += int(value)
+    paper.save()
+    return JsonResponse({"status": 200})
+
+    
+
 
