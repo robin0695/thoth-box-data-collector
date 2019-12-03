@@ -1,3 +1,13 @@
+# download paper
+After we install pymysql, when we run the command `scrapy crawl sanity_spyder`, it will raise an error:
+jango.core.exceptions.ImproperlyConfigured: mysqlclient 1.3.13 or newer is required; you have 0.9.3
+
+To solve this problem, we need to manually remove this constrain in the python source code:
+/Users/weiwang/Workspaces/projects/thoth_box/thoth_env/lib/python3.7/site-packages/django/db/backends/mysql/base.py in line 36.
+
+
+
+
 # Paper Process commands
 
 start the celery worker and beat process

@@ -1,6 +1,7 @@
 from thoth_data_collector.models import PaperItem, PaperAuthor, PaperCategory, IssueInfo
 from rest_framework import serializers
-
+from drf_haystack.serializers import HaystackSerializer
+from thoth_data_collector.search_indexes import PaperItemIndex
 
 class IssueInfoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -44,3 +45,10 @@ class PaperAuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = PaperAuthor
         fields = ('id', 'author_name', 'author_home_page', 'author_email_addr')
+
+class PaperSearchSerializer(HaystackSerializer, PaperItemSerializer):
+    class Meta(PaperItemSerializer.Meta):
+        index_classes = [PaperItemIndex]
+        search_fields = ["text"]
+
+        

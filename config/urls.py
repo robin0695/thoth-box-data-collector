@@ -23,12 +23,12 @@ router = routers.DefaultRouter()
 router.register(r'papers', views.PaperViewSet)
 router.register(r'paper_authors', views.PaperAuthorViewSet)
 router.register(r'issue_infos', views.IssueViewSet)
+router.register(r'paper/search', views.PaperSearchView, base_name='paper-search')
 
 
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url('^papers(?P<is_recommanded>.+)/$', views.RecommandPaperList.as_view()),
-
 ]
 
