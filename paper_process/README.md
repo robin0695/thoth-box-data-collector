@@ -5,6 +5,11 @@ jango.core.exceptions.ImproperlyConfigured: mysqlclient 1.3.13 or newer is requi
 To solve this problem, we need to manually remove this constrain in the python source code:
 /Users/weiwang/Workspaces/projects/thoth_box/thoth_env/lib/python3.7/site-packages/django/db/backends/mysql/base.py in line 36.
 
+Another bug in File "/Users/weiwang/Workspaces/projects/thoth_box/thoth_env/lib/python3.7/site-packages/django/db/backends/mysql/operations.py", line 146, in last_executed_query
+`query = query.decode(errors='replace')`
+AttributeError: 'str' object has no attribute 'decode'
+
+Fix: change the decode to encode 
 
 
 
@@ -25,4 +30,6 @@ start the celery worker and beat process
 ## Config Solr
 - start solr: `$SOLR_HOME/bin/solr start`
 - create a core: `$SOLR_HOME/bin/solr create -c thoth_box -n basic_config` the core conf will locate in $SOLR_HOME/server/solr/thoth_box/conf
+- create the schema.xml using haystack: `python manage.py build_solr_schema --configure-directory=$SOLR_HOME/server/solr/thoth_box/conf --filename=schema.xml`
+- create the index: `python manage.py rebuild_index`
 
