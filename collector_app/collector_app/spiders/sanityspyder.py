@@ -1,8 +1,8 @@
 from scrapy.spiders import Spider, Request
 from scrapy.selector import Selector
 
-from collector_app.items import TestItem
-
+from collector_app.collector_app.items import TestItem
+import time
 
 class SanitySpider(Spider):
     name = 'sanity_spyder'
@@ -10,14 +10,20 @@ class SanitySpider(Spider):
     start_urls = ['http://export.arxiv.org/api/query?'
                   'search_query=cat:cs.CV+OR+cat:cs.AI+OR+cat:cs.LG+OR+cat:cs.CL+OR'
                   '+cat:cs.NE+OR+cat:stat.ML']
+    start_index = 0
+    result_per_query = 500
+    max_index = 10000
 
     def start_requests(self):
 
-        urls = ['http://export.arxiv.org/api/query?'
-                'search_query=cat:cs.CV+OR+cat:cs.AI+OR+cat:cs.LG+OR+cat:cs.CL+OR'
-                '+cat:cs.NE+OR+cat:stat.ML']
-        for url in urls:
+        basic_url = 'http://export.arxiv.org/api/query?'\
+                    'search_query=cat:cs.CV+OR+cat:cs.AI+OR+cat:cs.LG+OR+cat:cs.CL+OR'\
+                    '+cat:cs.NE+OR+cat:stat.ML&sortBy=lastUpdatedDate'
+        
+        for i in range(self.start_index, self.max_index, self.result_per_query):
+            url = basic_url + "&start=%i&max_results=%i" % (i, self.result_per_query)
             yield Request(url=url, callback=self.parse)
+            time.sleep(1)
 
     def parse(self, response):
         content_selector = Selector(text=response.body)

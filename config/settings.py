@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import pymysql
+from celery.schedules import crontab
+
 pymysql.install_as_MySQLdb()
 
 # Celery settings
@@ -188,4 +190,18 @@ HAYSTACK_CONNECTIONS = {
         # ...or for multicore...
         # 'URL': 'http://127.0.0.1:8983/solr/mysite',
     },
+}
+
+# Celery settings
+CELERY_BEAT_SCHEDULE = {
+    'crawl_paper':
+        {
+            'task': 'paper_process.tasks.crawl_paper',
+            'schedule': crontab(hour='*/1')
+        },
+    'process_paper':
+        {
+            'taks': 'paper_process.tasks.process_paper',
+            'schedule': crontab(minute='*/15')
+        }    
 }

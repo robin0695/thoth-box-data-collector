@@ -11,6 +11,9 @@ import time
 import random
 import logging
 import subprocess
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
+from collector_app.collector_app.spiders.sanityspyder import SanitySpider
 
 logger = logging.getLogger(__name__)
 
@@ -84,6 +87,16 @@ def pdf2text(pdf_file):
         subprocess.call(command, shell=True)
     except Exception as e:
         logger.error(e)
+
+@shared_task
+def crawl_paper():
+    process = CrawlerProcess(get_project_settings())
+    process.crawl(SanitySpider)
+    process.start()
+
+@shared_task
+def test_schedule():
+    print('This is a test task')
 
 @shared_task
 def pdf2text_all():

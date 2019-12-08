@@ -15,9 +15,10 @@ Including another URLconf
 """
 
 from django.conf.urls import url, include
+from django.urls import path
 from rest_framework import routers
 from thoth_data_collector import views
-
+from django.contrib import admin
 
 router = routers.DefaultRouter()
 router.register(r'papers', views.PaperViewSet)
@@ -27,6 +28,7 @@ router.register(r'paper/search', views.PaperSearchView, base_name='paper-search'
 
 
 urlpatterns = [
+    path(r'admin/', admin.site.urls),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url('^papers(?P<is_recommanded>.+)/$', views.RecommandPaperList.as_view()),
