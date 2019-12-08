@@ -201,7 +201,7 @@ CELERY_BEAT_SCHEDULE = {
         },
     'process_paper':
         {
-            'taks': 'paper_process.tasks.process_paper',
+            'task': 'paper_process.tasks.process_paper',
             'schedule': crontab(minute='*/15')
         }    
 }
