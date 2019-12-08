@@ -197,7 +197,7 @@ CELERY_BEAT_SCHEDULE = {
     'crawl_paper':
         {
             'task': 'paper_process.tasks.crawl_paper',
-            'schedule': crontab(hour='*/1')
+            'schedule': crontab(minute=0, hour='*/1')
         },
     'process_paper':
         {
