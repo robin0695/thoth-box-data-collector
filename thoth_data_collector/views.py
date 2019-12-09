@@ -12,10 +12,26 @@ from django.views import View
 from haystack.query import SearchQuerySet
 from drf_haystack.viewsets import HaystackViewSet
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.decorators import action
 
 class PaperViewSet(viewsets.ModelViewSet):
     queryset = PaperItem.objects.all().order_by('-id')
     serializer_class = PaperItemSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        instance.view_count += 1
+        instance.save()
+        return Response(serializer.data)
+    
+    @action(detail=True, methods=['post'])
+    def paper_like(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.like_count += 1
+        instance.save()
+        return Response({'status': 'like confirmed', 'like_count': instance.like_count})
 
 
 class PaperAuthorViewSet(viewsets.ModelViewSet):
