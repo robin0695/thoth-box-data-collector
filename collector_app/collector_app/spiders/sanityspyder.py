@@ -1,7 +1,7 @@
 from scrapy.spiders import Spider, Request
 from scrapy.selector import Selector
 
-from collector_app.collector_app.items import TestItem
+from collector_app.items import TestItem
 import time
 
 class SanitySpider(Spider):
