@@ -57,8 +57,8 @@ INSTALLED_APPS = [
     'thoth_data_collector',
     'rest_framework',
     'corsheaders',
-    'paper_process'
-
+    'paper_process',
+    'django_filters'
 ]
 
 REST_FRAMEWORK = {
@@ -68,8 +68,8 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
-
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
 MIDDLEWARE = [

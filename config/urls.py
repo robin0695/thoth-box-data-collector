@@ -31,7 +31,7 @@ urlpatterns = [
     path(r'admin/', admin.site.urls),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url('^papers(?P<is_recommanded>.+)/$', views.RecommandPaperList.as_view()),
+    #url('^papers(?P<is_recommanded>.+)/$', views.RecommandPaperList.as_view()),
     #url(r"paper_like/(?P<id>\d+)/(?P<value>-?\d)/", views.paper_like, name="paper_like")
 ]
 

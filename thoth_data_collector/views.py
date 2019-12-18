@@ -18,6 +18,7 @@ from rest_framework.decorators import action
 class PaperViewSet(viewsets.ModelViewSet):
     queryset = PaperItem.objects.all().order_by('-id')
     serializer_class = PaperItemSerializer
+    filterset_fields = ['is_recommanded']
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
