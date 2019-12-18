@@ -13,7 +13,6 @@ import logging
 import subprocess
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
-from collector_app.collector_app.spiders.sanityspyder import SanitySpider
 from multiprocessing import Process
 
 logger = logging.getLogger(__name__)
@@ -90,36 +89,4 @@ def pdf2text(pdf_file):
     except Exception as e:
         logger.error(e)
 
-
-class PaperCrawlerProcess:
-    def __init__(self):
-        self.crawler = CrawlerProcess(get_project_settings())
-
-    def _crawl(self):
-        self.crawler.crawl(SanitySpider)
-        self.crawler.start()
-        self.crawler.stop()
-    
-    def crawl(self):
-        p = Process(target=self._crawl)
-        p.start()
-        p.join()
-
-paper_crawler = PaperCrawlerProcess()
-
-@shared_task
-def crawl_paper():
-    paper_crawler.crawl()
-
-@shared_task
-def test_schedule():
-    print('This is a test task')
-
-@shared_task
-def pdf2text_all():
-    """
-    
-    """
-if __name__ == "__main__":
-    pass
 
