@@ -14,6 +14,7 @@ import subprocess
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from collector_app.collector_app.spiders.sanityspyder import SanitySpider
+from multiprocessing import Process
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +51,7 @@ def process_paper():
                 
                 pdf2html.delay(output_paper_file)
                 pdf2text.delay(output_paper_file)
-                time.sleep(0.05 + random.unifomr(0, 0.1))
+                time.sleep(0.05 + random.unifom(0, 0.1))
             
             paper.is_processed = 1
             paper.save()
@@ -58,13 +59,14 @@ def process_paper():
             logger.error(e)
 
 @shared_task
-def pdf2html(paper_file):
+def pdf2html(paper_file, dest_dir=None):
     if not shutil.which('pdf2htmlEX'):
         raise Exception('Error: pdf2htmlEX not exist. Pleaase install pdf2htmlEX in first.')
-    dest_dir = os.path.dirname(paper_file)
+    if dest_dir is None:
+        dest_dir = os.path.dirname(paper_file)
     basename = os.path.basename(paper_file).rsplit(".", 1)[0]
 
-    command = "pdf2htmlEX --dest-dir %s %s"  % (dest_dir, paper_file)
+    command = "pdf2htmlEX --dest-dir %s --zoom 1.5 %s"  % (dest_dir, paper_file)
     logger.info(command)
     try:
         subprocess.call(command, shell=True)
@@ -88,11 +90,26 @@ def pdf2text(pdf_file):
     except Exception as e:
         logger.error(e)
 
+
+class PaperCrawlerProcess:
+    def __init__(self):
+        self.crawler = CrawlerProcess(get_project_settings())
+
+    def _crawl(self):
+        self.crawler.crawl(SanitySpider)
+        self.crawler.start()
+        self.crawler.stop()
+    
+    def crawl(self):
+        p = Process(target=self._crawl)
+        p.start()
+        p.join()
+
+paper_crawler = PaperCrawlerProcess()
+
 @shared_task
 def crawl_paper():
-    process = CrawlerProcess(get_project_settings())
-    process.crawl(SanitySpider)
-    process.start()
+    paper_crawler.crawl()
 
 @shared_task
 def test_schedule():
