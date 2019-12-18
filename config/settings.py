@@ -192,16 +192,13 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
 # Celery settings
 CELERY_BEAT_SCHEDULE = {
-    'crawl_paper':
+    'fetch_paper':
         {
-            'task': 'paper_process.tasks.crawl_paper',
+            'task': 'thoth_data_collector.tasks.fetch_paper',
             'schedule': crontab(minute=0, hour='*/1')
-        },
-    'process_paper':
-        {
-            'task': 'paper_process.tasks.process_paper',
-            'schedule': crontab(minute='*/15')
-        }    
+        }
 }
