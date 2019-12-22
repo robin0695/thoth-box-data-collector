@@ -1,19 +1,27 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
+import os
+import shutil
 
+from django.conf import settings
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
+from drf_haystack.viewsets import HaystackViewSet
+from rest_framework import generics
+from rest_framework import permissions
+from rest_framework import status
+from rest_framework import views, parsers
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.decorators import permission_classes
+from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
+from django.db import transaction
 
 from thoth_data_collector.models import PaperItem, PaperAuthor, IssueInfo
-from rest_framework import viewsets
-from thoth_data_collector.serializers import PaperItemSerializer, PaperAuthorSerializer, IssueInfoSerializer, PaperSearchSerializer
-from rest_framework import generics
-from django.views import View
-from haystack.query import SearchQuerySet
-from drf_haystack.viewsets import HaystackViewSet
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework.decorators import action
+from thoth_data_collector.serializers import PaperItemSerializer, PaperAuthorSerializer, IssueInfoSerializer, \
+    PaperSearchSerializer
+
 
 class PaperViewSet(viewsets.ModelViewSet):
     queryset = PaperItem.objects.all().order_by('-id')
@@ -26,7 +34,7 @@ class PaperViewSet(viewsets.ModelViewSet):
         instance.view_count += 1
         instance.save()
         return Response(serializer.data)
-    
+
     @action(detail=True, methods=['post'])
     def paper_like(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -56,6 +64,7 @@ class RecommandPaperList(generics.ListAPIView):
             queryset = PaperItem.objects.all()
         return queryset
 
+
 class PaperSearchView(HaystackViewSet):
     index_models = [PaperItem]
     serializer_class = PaperSearchSerializer
@@ -68,6 +77,44 @@ def paper_like(request, id, value):
     paper.save()
     return JsonResponse({"status": 200})
 
-    
 
+@permission_classes((permissions.AllowAny,))
+class FileUploadView(views.APIView):
+    parser_classes = (parsers.MultiPartParser, parsers.FormParser)
+    serializer_class = PaperItemSerializer
+
+    @csrf_exempt
+    @transaction.atomic
+    def put(self, request, *args, **kwargs):
+        print(request.data['file'])
+        print(request.data)
+        data_folder = os.path.join(settings.MEDIA_ROOT, 'pdfs')
+        output_paper_file = os.path.join(data_folder, request.data['file'].name)
+
+        with open(output_paper_file, "wb") as fp:
+            shutil.copyfileobj(request.data['file'], fp)
+
+        try:
+            paper_item = PaperItem.objects.get(paper_id=request.data["paper_id"])
+        except PaperItem.DoesNotExist:
+
+            newPaper = PaperItem()
+            newPaper.is_recommanded = True
+            newPaper.issue_info = IssueInfo.objects.get(pk=request.data['issue_info'])
+            newPaper.paper_id = request.data["paper_id"]
+            newPaper.paper_title = request.data["paper_title"]
+            newPaper.paper_link = request.data["paper_link"]
+            newPaper.paper_comments = request.data["paper_comments"]
+            newPaper.paper_summary = request.data["paper_summary"]
+            newPaper.recommand_reason = request.data["recommand_reason"]
+            newPaper.save()
+
+            authors = request.data["paper_authors"].split('|')
+            for author in authors:
+                newAuthor = PaperAuthor()
+                newAuthor.author_name = author
+                newAuthor.paper_item = newPaper
+                newAuthor.save()
+
+        return Response(request.data, status=status.HTTP_201_CREATED)
 
