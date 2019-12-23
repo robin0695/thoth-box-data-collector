@@ -197,9 +197,9 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 # Celery settings
 CELERY_BEAT_SCHEDULE = {
-    'fetch_paper':
+    'fetch_arxiv':
         {
-            'task': 'thoth_data_collector.tasks.fetch_paper',
+            'task': 'thoth_data_collector.tasks.fetch_arxiv',
             'schedule': crontab(minute=0, hour='*/1')
         }
 }
