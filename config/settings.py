@@ -182,6 +182,8 @@ CELERY_RESULT_BACKEND = 'django-db'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+HTML_ROOT = os.path.join(BASE_DIR, os.pardir, "thoth-box-static-papers")
+
 # haystack config
 HAYSTACK_CONNECTIONS = {
     'default': {

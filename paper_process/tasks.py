@@ -58,6 +58,37 @@ def process_paper():
             logger.error(e)
 
 @shared_task
+def paper_process_pipeline(paper_link, dest_dir=None):
+    if not paper_link.endswith("pdf"):
+        paper_link += ".pdf"
+    
+    if dest_dir is None:
+        dest_dir = "./"
+    
+    timeout_secs = 10
+    out_paper_name = paper_link.split("/")[-1]
+    out_paper_name = os.path.join(dest_dir, out_paper_name)
+
+    try:
+        # download paper
+        req = urlopen(paper_link, None, timeout_secs)
+        if not os.path.exists(dest_dir):
+            os.makedirs(dest_dir)
+                
+        with open(out_paper_name, "wb") as fp:
+            shutil.copyfileobj(req, fp)
+
+        # transform to html
+        pdf2html(out_paper_name, dest_dir)
+
+        # transform to text
+        pdf2text(out_paper_name, dest_dir)
+
+    except Exception as e:
+        logger.error(e)
+
+
+@shared_task
 def pdf2html(paper_file, dest_dir=None):
     if not shutil.which('pdf2htmlEX'):
         raise Exception('Error: pdf2htmlEX not exist. Pleaase install pdf2htmlEX in first.')
@@ -73,13 +104,16 @@ def pdf2html(paper_file, dest_dir=None):
         logger.error(e)
 
 @shared_task
-def pdf2text(pdf_file):
+def pdf2text(pdf_file, dest_dir=None):
     if not shutil.which('pdftotext'):
         raise Exception('Error: pdftotext not exist. Please install pdftotext in first.')
     
     basename = os.path.basename(pdf_file)
-    text_basename = basename.rsplit(".", 1)[0] + ".txt" 
-    text_file = os.path.join(os.path.dirname(pdf_file), text_basename)
+    text_basename = basename.rsplit(".", 1)[0] + ".txt"
+    if dest_dir is None:
+        dest_dir = os.path.dirname(pdf_file)
+
+    text_file = os.path.join(dest_dir, text_basename)
 
     command = "pdftotext %s %s" % (pdf_file, text_file)
     logger.info(command)
@@ -88,5 +122,3 @@ def pdf2text(pdf_file):
         subprocess.call(command, shell=True)
     except Exception as e:
         logger.error(e)
-
-

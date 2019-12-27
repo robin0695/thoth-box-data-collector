@@ -17,6 +17,7 @@ from rest_framework.decorators import permission_classes
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from django.db import transaction
+from paper_process.tasks import paper_process_pipeline
 
 from thoth_data_collector.models import PaperItem, PaperAuthor, IssueInfo
 from thoth_data_collector.serializers import PaperItemSerializer, PaperAuthorSerializer, IssueInfoSerializer, \
@@ -42,6 +43,27 @@ class PaperViewSet(viewsets.ModelViewSet):
         instance.save()
         return Response({'status': 'like confirmed', 'like_count': instance.like_count})
 
+    @action(detail=True, methods=['patch'])
+    def paper_recommand(self, request, *args, **kwargs):
+        instance = self.get_object()
+        
+        is_recommanded = instance.is_recommanded
+
+        if is_recommanded:
+            return Response({'status': 200, 'message': "The paper has already been recommanded."})
+        
+        # download the pdf
+        pdf_url = instance.paper_link
+        
+        # transform the pdf
+        paper_process_pipeline.delay(pdf_url, settings.HTML_ROOT)
+        
+        # save the data
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        
 
 class PaperAuthorViewSet(viewsets.ModelViewSet):
     queryset = PaperAuthor.objects.all().order_by('id')
@@ -69,13 +91,6 @@ class PaperSearchView(HaystackViewSet):
     index_models = [PaperItem]
     serializer_class = PaperSearchSerializer
     permission_classes = []
-
-
-def paper_like(request, id, value):
-    paper = get_object_or_404(PaperItem, id=id)
-    paper.like_count += int(value)
-    paper.save()
-    return JsonResponse({"status": 200})
 
 
 @permission_classes((permissions.AllowAny,))
