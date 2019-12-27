@@ -63,7 +63,6 @@ class PaperViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        
 
 class PaperAuthorViewSet(viewsets.ModelViewSet):
     queryset = PaperAuthor.objects.all().order_by('id')
