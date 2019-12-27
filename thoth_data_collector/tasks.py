@@ -34,7 +34,7 @@ def fetch_arxiv():
                     else:
                         paper = PaperItem()
                         paper.paper_id = paper_id
-                        paper.title = re.sub("\n+", " ", entry["title"])
+                        paper.paper_title = re.sub("\n+", " ", entry["title"])
                         paper.created_by = 'spider'
                         paper.created_date = time_parse(entry["published"])
                         paper.update_date = time_parse(entry["updated"])
