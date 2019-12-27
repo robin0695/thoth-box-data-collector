@@ -62,7 +62,7 @@ class PaperViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(instance, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-
+        return Response({'status': 200, 'message': "Successfully Recommand %s" % instance.paper_title})
 
 class PaperAuthorViewSet(viewsets.ModelViewSet):
     queryset = PaperAuthor.objects.all().order_by('id')
