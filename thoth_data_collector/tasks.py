@@ -45,7 +45,7 @@ def fetch_arxiv():
                         
                         paper.page_comments = entry["arxiv_comment"][:250] if "arxiv_comment" in entry else ""
                         paper.summary = re.sub("\n+", " ", entry["summary"])
-                        
+                        paper.code_url = ""
                         paper.save()
 
                         for author_name_ in entry['authors']:

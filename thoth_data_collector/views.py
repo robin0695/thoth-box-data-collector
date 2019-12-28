@@ -29,7 +29,7 @@ import re
 
 
 class PaperViewSet(viewsets.ModelViewSet):
-    queryset = PaperItem.objects.all().order_by('-id')
+    queryset = PaperItem.objects.all().order_by('-created_date')
     serializer_class = PaperItemSerializer
     filterset_fields = ['is_recommanded']
 
@@ -87,7 +87,7 @@ class RecommandPaperList(generics.ListAPIView):
             queryset = PaperItem.objects.filter(is_recommanded=isRecommanded)
         else:
             queryset = PaperItem.objects.all()
-        return queryset
+        return queryset.order_by("-update_date")
 
 
 class PaperSearchView(HaystackViewSet):
