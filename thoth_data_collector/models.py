@@ -32,6 +32,7 @@ class PaperItem(models.Model):
     like_count = models.IntegerField(default=0)
     view_count = models.IntegerField(default=0)
     last_view_time = models.DateTimeField(default=django.utils.timezone.now)
+    code_url = models.CharField(max_length=200, default='')
 
 
 class PaperAuthor(models.Model):
