@@ -23,13 +23,17 @@ from paper_process.tasks import paper_process_pipeline, pdf2html
 from thoth_data_collector.models import PaperItem, PaperAuthor, IssueInfo, PaperCategory
 from thoth_data_collector.serializers import PaperItemSerializer, PaperAuthorSerializer, IssueInfoSerializer, \
     PaperSearchSerializer
+from urllib.parse import quote
+import urllib.request as libreq
+import feedparser
+import re
 
 from scrapy.selector import Selector
 from collector_app.collector_app.items import TestItem
 
 
 class PaperViewSet(viewsets.ModelViewSet):
-    queryset = PaperItem.objects.all().order_by('-id')
+    queryset = PaperItem.objects.all().order_by('-created_date')
     serializer_class = PaperItemSerializer
     filterset_fields = ['is_recommanded']
 
@@ -89,7 +93,7 @@ class RecommandPaperList(generics.ListAPIView):
             queryset = PaperItem.objects.filter(is_recommanded=isRecommanded)
         else:
             queryset = PaperItem.objects.all()
-        return queryset
+        return queryset.order_by("-update_date")
 
 
 class PaperSearchView(HaystackViewSet):
@@ -211,4 +215,49 @@ class AddOldArchivePaper(views.APIView):
                 item['summary'] = line.xpath('summary/text()').extract()
                 self.saveItem2Db(item)
 
-        return Response(r, status=status.HTTP_201_CREATED)
+        return Response(item, status=status.HTTP_201_CREATED)
+
+
+@permission_classes((permissions.AllowAny,))
+class ArxivSearchView(views.APIView):
+    def get(self, request, *args, **kwargs):
+        base_url = "http://export.arxiv.org/api/query?sortBy=lastUpdatedDate&start=0&max_results=50&search_query="
+
+        #query_term = "(cat:cs.CV+OR+cat:cs.AI+OR+cat:cs.LG+OR+cat:cs.CL+OR+cat:cs.NE+OR+cat:stat.ML)+AND+("
+        q = request.query_params["query"].replace(" ", "+")
+
+        query_term = ""
+        terms = ["ti", "au"]
+        for i, t in enumerate(terms):
+            query_term += '%s:"%s"' % (t, q)
+            if i != len(terms)-1:
+                query_term += "+OR+"
+
+        url = base_url + query_term
+        print('search url: %s' % url)
+        response = libreq.urlopen(url).read()
+        parse = feedparser.parse(response)
+
+        results = {"results": [], "count": len(parse.entries)}
+        for entry in parse.entries:
+            paper_link = ""
+            for s in entry['links']:
+                if "title" in s and s["title"] == "pdf":
+                    paper_link = s["href"]
+
+            authors = [author["name"] for author in entry["authors"]]
+            categories = [{"term": c["term"][:20], "is_primary": c["term"] ==
+                           entry["arxiv_primary_category"]["term"]} for c in entry["tags"]]
+
+            paper = {
+                "paper_id": entry["id"],
+                "paper_title": re.sub("\n+", " ", entry["title"]),
+                "paper_link": paper_link,
+                "page_comments": entry["arxiv_comment"][:250] if "arxiv_comment" in entry else "",
+                "summary": re.sub("\n+", " ", entry["summary"]),
+                "authors": authors,
+                "categories": categories
+            }
+            results["results"].append(paper)
+
+        return Response(data=results, status=200)
