@@ -17,7 +17,7 @@ from rest_framework.decorators import permission_classes
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from django.db import transaction
-from paper_process.tasks import paper_process_pipeline
+from paper_process.tasks import paper_process_pipeline, pdf2html
 
 from thoth_data_collector.models import PaperItem, PaperAuthor, IssueInfo
 from thoth_data_collector.serializers import PaperItemSerializer, PaperAuthorSerializer, IssueInfoSerializer, \
@@ -130,5 +130,7 @@ class FileUploadView(views.APIView):
                 newAuthor.paper_item = newPaper
                 newAuthor.save()
 
+        # transform the pdf to html        
+        pdf2html.delay(output_paper_file, settings.HTML_ROOT)
         return Response(request.data, status=status.HTTP_201_CREATED)
 
