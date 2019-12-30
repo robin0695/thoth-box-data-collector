@@ -4,7 +4,7 @@ import sys
 import os
 from celery import shared_task
 from thoth_data_collector.models import PaperItem
-from urllib.request import urlopen
+from urllib.request import urlopen, Request
 import shutil
 from django.conf import settings
 import time
@@ -42,13 +42,15 @@ def process_paper():
         try:
             if not os.path.exists(output_paper_file):
                 # download the pdf
-                req = urlopen(paper_link, None, timeout_secs)
+                headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.3'}
+                req = Request(url=paper_link, headers=headers)
+                result = urlopen(req)
                 
                 if not os.path.exists(paper_folder):
                     os.makedirs(paper_folder)
 
                 with open(output_paper_file, "wb") as fp:
-                    shutil.copyfileobj(req, fp)
+                    shutil.copyfileobj(result, fp)
                 
                 pdf2html.delay(output_paper_file)
                 pdf2text.delay(output_paper_file)
