@@ -57,14 +57,11 @@ class PaperViewSet(viewsets.ModelViewSet):
 
         is_recommanded = instance.is_recommanded
 
-        if is_recommanded:
-            return Response({'status': 200, 'message': "The paper has already been recommanded."})
-
-        # download the pdf
-        pdf_url = instance.paper_link
-
-        # transform the pdf
-        paper_process_pipeline.delay(pdf_url, settings.HTML_ROOT)
+        if not is_recommanded:
+            # download the pdf
+            pdf_url = instance.paper_link
+            # transform the pdf
+            paper_process_pipeline.delay(pdf_url, settings.HTML_ROOT)
 
         # save the data
         serializer = self.get_serializer(
