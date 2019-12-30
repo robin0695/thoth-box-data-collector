@@ -131,9 +131,10 @@ class FileUploadView(views.APIView):
             newPaper.paper_id = request.data["paper_id"]
             newPaper.paper_title = request.data["paper_title"]
             newPaper.paper_link = request.data["paper_link"]
-            newPaper.paper_comments = request.data["paper_comments"]
-            newPaper.paper_summary = request.data["paper_summary"]
+            newPaper.page_comments = request.data["paper_comments"]
+            newPaper.summary = request.data["paper_summary"]
             newPaper.recommand_reason = request.data["recommand_reason"]
+            newPaper.created_by = "upload"
             newPaper.save()
 
             authors = request.data["paper_authors"].split('|')
