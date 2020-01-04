@@ -135,7 +135,7 @@ DATABASES = {
         'NAME': 'thoth_django_dev',
         'USER': 'thoth_django_dev',
         # 'PASSWORD': 'thoth_django_dev',
-        'PASSWORD': 'thoth_django_dev123!@#',
+        'PASSWORD': 'Thoth_django_dev123!@#',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
