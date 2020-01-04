@@ -58,7 +58,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'paper_process',
-    'django_filters'
+    'django_filters',
+    'werkzeug_debugger_runserver',
+    'django_extensions',
 ]
 
 REST_FRAMEWORK = {
@@ -104,8 +106,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,7 +134,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'thoth_django_dev',
         'USER': 'thoth_django_dev',
-        'PASSWORD': 'Thoth_django_dev123!@#',
+        'PASSWORD': 'thoth_django_dev',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
@@ -188,7 +189,8 @@ HTML_ROOT = os.path.join(BASE_DIR, os.pardir, "thoth-box-static-papers")
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr/thoth_box',                 # Assuming you created a core named 'tester' as described in installing search engines.
+        # Assuming you created a core named 'tester' as described in installing search engines.
+        'URL': 'http://127.0.0.1:8983/solr/thoth_box',
         'ADMIN_URL': 'http://127.0.0.1:8983/solr/admin/cores'
         # ...or for multicore...
         # 'URL': 'http://127.0.0.1:8983/solr/mysite',
