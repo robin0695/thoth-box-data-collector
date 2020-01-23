@@ -19,6 +19,7 @@ from django.urls import path
 from rest_framework import routers
 from thoth_data_collector import views
 from django.contrib import admin
+from rest_framework_simplejwt import views as jwt_views
 
 router = routers.DefaultRouter()
 router.register(r'papers', views.PaperViewSet)
@@ -26,6 +27,7 @@ router.register(r'paper_authors', views.PaperAuthorViewSet)
 router.register(r'issue_infos', views.IssueViewSet)
 router.register(r'paper/search', views.PaperSearchView,
                 base_name='paper-search')
+router.register(r'users', views.UserViewSet, base_name="user")
 
 urlpatterns = [
     path(r'admin/', admin.site.urls),
@@ -34,6 +36,13 @@ urlpatterns = [
     url(r'^upload/(?P<filename>[^/]+)$', views.FileUploadView.as_view()),
     url(r'^add_old_archive_paper', views.AddOldArchivePaper.as_view()),
     url(r'arxiv_search', views.ArxivSearchView.as_view()),
+    url(r'^user/register', views.CreateUserView.as_view(), name='user-register'),
     #url('^papers(?P<is_recommanded>.+)/$', views.RecommandPaperList.as_view()),
-    #url(r"paper_like/(?P<id>\d+)/(?P<value>-?\d)/", views.paper_like, name="paper_like")
+    #url(r"paper_like/(?P<id>\d+)/(?P<value>-?\d)/", views.paper_like, name="paper_like"),
+    url(r'^api/token/', jwt_views.TokenObtainPairView.as_view(),
+        name='token_obtain_pair'),
+    url(r'^api/token/refresh/',
+        jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    url(r'^api/token/verify/', jwt_views.TokenVerifyView.as_view(), name='token_verify'),
+
 ]

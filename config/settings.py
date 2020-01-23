@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import pymysql
 from celery.schedules import crontab
+from datetime import timedelta
+
 
 pymysql.install_as_MySQLdb()
 
@@ -71,7 +73,10 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 200,
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 }
 
 MIDDLEWARE = [
@@ -134,8 +139,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'thoth_django_dev',
         'USER': 'thoth_django_dev',
-        # 'PASSWORD': 'thoth_django_dev',
-        'PASSWORD': 'Thoth_django_dev123!@#',
+        'PASSWORD': 'thoth_django_dev',
+        # 'PASSWORD': 'Thoth_django_dev123!@#',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
@@ -207,4 +212,30 @@ CELERY_BEAT_SCHEDULE = {
             'task': 'thoth_data_collector.tasks.fetch_arxiv',
             'schedule': crontab(minute=0, hour='*/1')
         }
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=600),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=2),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=600),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }

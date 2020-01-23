@@ -1,0 +1,50 @@
+
+POST http://127.0.0.1:8000/user/register/ HTTP/1.1
+Content-Type: application/json
+# Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc5MjE2MTQ0LCJqdGkiOiJlOGUzYzI2NTEzNWE0Yzk4YTIxM2UxZWFlNjE2ODAzNyIsInVzZXJfaWQiOjF9.LezlHx-xDP-Dff7VXFMal0YkfplMEZAFeh08_mQYgpM
+
+{
+  "password": "test1",
+  "last_login": null,
+  "is_superuser": 0,
+  "username": "robin8",
+  "first_name": "Robin",
+  "email": "2@robin.com",
+  "is_staff": 0,
+  "is_active": 1,
+  "date_joined": "2020-01-14 14:16:06.483359" ,
+  "last_name": "Li"
+}
+###
+
+GET  http://127.0.0.1:8000/users/4/ HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc5Mzg2Mzc3LCJqdGkiOiIwNDdlNTA3YTkxMGU0NWIxODM2YzI5ZDcxNDFkMTQxNSIsInVzZXJfaWQiOjh9.XOM3r4npqjdmQ2Fpm-1_7qlY5GtZsnt7pq_qjOKafEI
+
+
+####
+POST http://localhost:8000/api/token/ HTTP/1.1
+content-type: application/json
+
+{
+  "username": "robin8",
+  "password": "test1"
+}
+
+####
+PUT http://localhost:8000/users/4/ HTTP/1.1
+content-type: application/json
+Authorization: Basic test test
+
+{
+  "username": "robin4",
+  "password": "test1",
+  "is_active": 1,
+  "is_staff": 1,
+  "is_superuser": 1
+}
+
+###
+GET  http://localhost:8000/api/user/login/ HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTc5NDY1NDc1LCJqdGkiOiIyODcxOGY2Nzc3ODI0OTA4ODE3NTc1OTYzMWUxY2UxNCIsInVzZXJfaWQiOjh9.P0C8IZHPaMr3LMLJF9scuCdXW_gJvD9hQxIicF49uI8

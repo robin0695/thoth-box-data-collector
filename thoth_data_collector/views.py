@@ -19,10 +19,16 @@ from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from django.db import transaction
 from paper_process.tasks import paper_process_pipeline, pdf2html
-
+from django.contrib.auth import get_user_model  # If used custom user model
 from thoth_data_collector.models import PaperItem, PaperAuthor, IssueInfo, PaperCategory
 from thoth_data_collector.serializers import PaperItemSerializer, PaperAuthorSerializer, IssueInfoSerializer, \
-    PaperSearchSerializer
+    PaperSearchSerializer, UserSerializer
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+from rest_framework.permissions import IsAuthenticated
+
+from django.contrib.auth.models import User
 from urllib.parse import quote
 import urllib.request as libreq
 import feedparser
@@ -259,3 +265,21 @@ class ArxivSearchView(views.APIView):
             results["results"].append(paper)
 
         return Response(data=results, status=200)
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    authentication_classes = [BasicAuthentication, JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+
+
+class CreateUserView(generics.CreateAPIView):
+    model = get_user_model()
+    permission_classes = [
+        permissions.AllowAny  # Or anon users can't register
+    ]
+    serializer_class = UserSerializer
