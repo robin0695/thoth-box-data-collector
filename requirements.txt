@@ -64,7 +64,7 @@ requests==2.22.0
 requests-oauthlib==1.2.0
 scikit-learn==0.21.3
 scipy==1.3.1
-Scrapy==1.8.0
+Scrapy==1.8.2
 service-identity==18.1.0
 six==1.12.0
 sqlparse==0.3.0
